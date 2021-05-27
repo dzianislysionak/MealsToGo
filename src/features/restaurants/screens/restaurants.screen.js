@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components/native'
-import { FlatList, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { ActivityIndicator, Colors } from 'react-native-paper'
 
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component'
@@ -10,12 +10,7 @@ import { RestaurantsContext } from '../../../services/redtaurants/restaurants.co
 import { FavoritesContext } from '../../../services/favorites/favorites.context'
 import { Search } from '../components/search.component.js'
 import { FavoritesBar } from '../../../components/favorites/favorites-bar.component'
-
-const RestaurantList = styled(FlatList).attrs({
-  contentContainerStyle: {
-    padding: 16,
-  },
-})``
+import { RestaurantList } from '../components/restaurant.list.styles'
 
 const LoadingContainer = styled.View`
   position: absolute;
