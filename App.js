@@ -1,6 +1,7 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components/native'
+import firebase from 'firebase/app'
 
 import {
   useFonts as useOswald,
@@ -12,9 +13,24 @@ import { theme } from './src/infrastructure/theme'
 import { RestaurantsContextProvider } from './src/services/redtaurants/restaurants.context'
 import { LocationContextProvider } from './src/services/location/location.context'
 import { FavoritesContextProvider } from './src/services/favorites/favorites.context'
+import { AuthecationContextProvider } from './src/services/authentication/authentication.context'
 import { Navigation } from './src/infrastructure/navigation/index'
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyA0p76o4pc2vZSUkgm-xNje7fH1hG48jtU',
+  authDomain: 'mealstogo-79f46.firebaseapp.com',
+  projectId: 'mealstogo-79f46',
+  storageBucket: 'mealstogo-79f46.appspot.com',
+  messagingSenderId: '551944422823',
+  appId: '1:551944422823:web:4f973074e7e68918066282',
+}
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+}
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   })
@@ -25,16 +41,19 @@ export default function App() {
   if (!oswaldLoaded || !latoLoaded) {
     return null
   }
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavoritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <Navigation />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-        </FavoritesContextProvider>
+        <AuthecationContextProvider>
+          <FavoritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <Navigation />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavoritesContextProvider>
+        </AuthecationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style='auto' />
     </>
