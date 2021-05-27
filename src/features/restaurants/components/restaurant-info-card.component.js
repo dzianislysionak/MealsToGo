@@ -15,6 +15,7 @@ import {
   RestaurantCardCover,
   Rating,
 } from './restaurant-info-card.styles'
+import { Favorite } from '../../../components/favorites/favorite.component'
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -27,19 +28,26 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isOpenNow = true,
     rating = 4,
     isClosedTemporarily = true,
+    placeId,
   } = restaurant
 
   const ratingArray = Array.from(new Array(Math.floor(rating)))
 
   return (
     <RestaurantCard elevation={5}>
+      <Favorite restaurant={restaurant} />
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
         <Text>{name}</Text>
         <Section>
           <Rating>
-            {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+            {ratingArray.map((_, idx) => (
+              <SvgXml
+                xml={star}
+                width={20}
+                height={20}
+                key={`star-${placeId}-${idx}`}
+              />
             ))}
           </Rating>
           <SectionEnd>
