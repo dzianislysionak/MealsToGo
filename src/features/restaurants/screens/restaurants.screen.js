@@ -11,6 +11,7 @@ import { FavoritesContext } from '../../../services/favorites/favorites.context'
 import { Search } from '../components/search.component.js'
 import { FavoritesBar } from '../../../components/favorites/favorites-bar.component'
 import { RestaurantList } from '../components/restaurant.list.styles'
+import { FadeInView } from '../../../components/animations/fade.animation'
 
 const LoadingContainer = styled.View`
   position: absolute;
@@ -41,6 +42,7 @@ export const RestaurantsScreen = ({ navigation }) => {
       {isToggled && (
         <FavoritesBar favorites={favorites} onNavigate={navigation.navigate} />
       )}
+
       <RestaurantList
         data={restaurants}
         renderItem={({ item }) => {
@@ -51,7 +53,9 @@ export const RestaurantsScreen = ({ navigation }) => {
               }
             >
               <Spacer position='bottom' size='large'>
-                <RestaurantInfoCard restaurant={item} />
+                <FadeInView>
+                  <RestaurantInfoCard restaurant={item} />
+                </FadeInView>
               </Spacer>
             </TouchableOpacity>
           )
