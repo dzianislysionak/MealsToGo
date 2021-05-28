@@ -21,8 +21,10 @@ export const FavoritesContextProvider = ({ children }) => {
   const loadFavorites = async (uid) => {
     try {
       const value = await AsyncStorage.getItem(`@favorites-${uid}`)
-      if (value !== null) {
+      
+      if (value != null) {
         setFavoreites(JSON.parse(value))
+
       }
     } catch (e) {
       console.log(e)
@@ -42,13 +44,13 @@ export const FavoritesContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (user) {
+    if (user && user.uid && favorites.length) {
       saveFavorites(favorites, user.uid)
     }
   }, [favorites, user])
 
   useEffect(() => {
-    if (user) {
+    if (user && user.uid) {
       loadFavorites(user.uid)
     }
   }, [user])
